@@ -1,0 +1,48 @@
+1.带双重检查锁定机制的懒汉式单例
+       在需要单例对象的时候，才创建唯一的单例对象，以后再次调用，返回的也是第一创建的单例对象，
+       将静态成员初始化为null，在获取单例的时候才创建。
+       运行结果：
+       LazySingleton!!
+       thread--3--enter
+       thread--3--enter status 1
+       thread--3--enter status 2
+       #######初始化######
+       thread--1--enter
+       thread--2--enter
+       thread--0--enter
+       根据运行结果来看，线程3先进入，然后创建对象。
+       接下来，线程0,1,2再进入时，对象已经创建过了，所以就不会再进入对象为null的代码块。
+       所以只有线程3进入了status 1、status 2.
+       再运行一次看看，结果是：
+       LazySingleton!!
+       thread--0--enter
+       thread--0--enter status 1
+       thread--0--enter status 2
+       #######初始化######
+       thread--1--enter
+       thread--2--enter
+       thread--3--enter
+       分析跟上面分析类似。
+
+2.饿汉式单例
+    在定义静态变量的时候就实例化单例类，因此类加载的时候就已经创建了对象。
+    运行结果是：
+    EagerSingleton!!
+    ######初始化######
+    thread--0--enter
+    thread--1--enter
+    thread--2--enter
+    thread--3--enter
+    在类加载的时候就已经初始化了。
+
+3.IoDH静态内部类
+    在单例类中添加一个静态内部类，在该内部类中创建单例对象，再将该单例对象通过getInstance()方法返回给外部使用。
+    运行结果是：
+    IoDHSingleton!!
+    thread--2--enter
+    ########初始化########
+    thread--1--enter
+    thread--3--enter
+    thread--0--enter
+    由运行结果来看，类加载的时候并没有实例化类，第一次调用getInstance()的时候加载内部类HolderClass，此时会初始化。
+    而且只初始化一次，在线程0,1,3进入的时候对象已经创建过了。
