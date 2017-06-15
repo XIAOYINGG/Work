@@ -1,7 +1,6 @@
 package singleton;
 //多线程测试懒汉式单例
 public class LazyMyThread extends Thread {
-
     private int s;
     public LazyMyThread(int i){
         this.s=i;
