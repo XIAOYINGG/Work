@@ -1,18 +1,18 @@
 package singleton;
 //多线程测试懒汉式单例
-public class LazyMyThread extends Thread {
+public class DCLMyThread extends Thread {
     private int s;
-    public LazyMyThread(int i){
+    public DCLMyThread(int i){
         this.s=i;
     }
     @Override
     public void run() {
-        LazySingleton.getInstance(s);
+        DCLSingleton.getInstance();
     }
     public static void main(String[] args){
-        System.out.println("LazySingleton!!");
+        System.out.println("DCLSingleton!!");
         for(int i = 0;i<4;i++){
-            new LazyMyThread(i).start();
+            new DCLMyThread(i).start();
         }
     }
 

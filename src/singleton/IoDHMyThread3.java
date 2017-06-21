@@ -7,7 +7,7 @@ public class IoDHMyThread3 extends Thread {
     }
     @Override
     public void run() {
-        IoDHSingleton.getInstance(s);
+        IoDHSingleton.getInstance();
     }
     public static void main(String[] args){
         System.out.println("IoDHSingleton!!");

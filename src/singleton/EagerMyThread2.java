@@ -8,7 +8,7 @@ public class EagerMyThread2 extends Thread {
     }
     @Override
     public void run() {
-        EagerSingleton.getInstance(s);
+        EagerSingleton.getInstance();
     }
     public static void main(String[] args){
         System.out.println("EagerSingleton!!");
